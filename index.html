@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101a2a">
+  <meta name="description" content="COMANDO DE CONTROLE — Operação Última Asa">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>COMANDO DE CONTROLE</title>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><div class="sigil">✦</div><div><div class="eyebrow">CENTRAL DE OPERAÇÕES</div><h1>COMANDO <span>DE CONTROLE</span></h1><div class="sub">OPERAÇÃO ÚLTIMA ASA · SETOR 001</div></div></div>
+  <div class="status"><i></i> SISTEMA LOCAL ATIVO</div>
+</header>
+<nav class="tabs" aria-label="Navegação principal">
+  <button class="tab active" data-tab="base">Base</button>
+  <button class="tab" data-tab="missoes">Missões</button>
+  <button class="tab" data-tab="inventario">Inventário</button>
+  <button class="tab" data-tab="oficina">Oficina</button>
+  <button class="tab" data-tab="historico">Histórico</button>
+</nav>
+<main>
+  <section id="base" class="panel active">
+    <div class="section-head"><div><div class="eyebrow">IDENTIFICAÇÃO OPERACIONAL</div><h2>Estado do operador</h2></div><span class="tag">RECRUTA · NÍVEL 1</span></div>
+    <div class="hero-grid">
+      <article class="card character">
+        <div class="avatar">✈</div><div><div class="eyebrow">OPERADOR</div><h3>Última Asa</h3><p>Reconstrução em andamento</p></div>
+        <div class="xp-block"><div class="spread"><b>EXPERIÊNCIA</b><b id="xpText">0 / 500 XP</b></div><div class="bar"><span id="xpBar"></span></div></div>
+      </article>
+      <article class="card"><div class="eyebrow">RECURSOS</div><div class="stats"><div><strong id="credits">0</strong><small>Créditos</small></div><div><strong id="medals">0</strong><small>Medalhas</small></div><div><strong id="materials">0</strong><small>Materiais</small></div></div></article>
+    </div>
+    <div class="section-head"><h2>Atributos</h2><span class="muted">Parâmetros lúdicos</span></div>
+    <div class="attribute-grid">
+      <div class="card attr"><span>Poder</span><b id="power">100</b><small>Capacidade operacional</small></div>
+      <div class="card attr"><span>Precisão</span><b id="precision">10</b><small>Desempenho em questões</small></div>
+      <div class="card attr"><span>Defesa</span><b id="defense">10</b><small>Retenção e revisão</small></div>
+      <div class="card attr"><span>Energia</span><b id="energy">100</b><small>Consistência</small></div>
+    </div>
+    <div class="section-head"><h2>Registrar operação de estudo</h2><span class="muted">O XP é calculado automaticamente</span></div>
+    <form id="studyForm" class="card form-grid">
+      <label>Páginas estudadas<input type="number" min="0" id="pages" value="0"></label>
+      <label>Questões fora de mapeamentos<input type="number" min="0" id="questions" value="0"></label>
+      <label>Acertos nessas questões<input type="number" min="0" id="correct" value="0"></label>
+      <label>Erros corrigidos e compreendidos<input type="number" min="0" id="corrected" value="0"></label>
+      <div class="checks">
+        <label><input type="checkbox" id="mapping"> Mapeamento concluído (+30 XP)</label>
+        <label><input type="checkbox" id="review"> Revisão concluída (+25 XP)</label>
+        <label><input type="checkbox" id="booklet"> Apostila concluída (+50 XP)</label>
+        <label><input type="checkbox" id="subject"> Matéria concluída (+250 XP)</label>
+        <label><input type="checkbox" id="simulation"> Simulado concluído (+50 XP)</label>
+      </div>
+      <label class="wide">Observação (opcional)<input type="text" id="notes" maxlength="180" placeholder="Ex.: Constitucional — art. 5º"></label>
+      <div class="wide preview"><span>XP desta operação</span><strong id="previewXP">0 XP</strong></div>
+      <button class="primary wide" type="submit">Salvar operação e contabilizar XP</button>
+    </form>
+    <div class="section-head"><h2>Proteção dos dados</h2></div>
+    <article class="card backup">
+      <p>Os dados ficam neste navegador, no dispositivo. Exporte um backup periodicamente para evitar perda acidental.</p>
+      <div class="actions"><button id="exportBtn" class="secondary">Exportar backup</button><label class="file-btn">Importar backup<input id="importFile" type="file" accept="application/json"></label></div>
+      <small id="saveStatus" class="muted">Banco local IndexedDB pronto.</small>
+    </article>
+  </section>
+
+  <section id="missoes" class="panel">
+    <div class="section-head"><div><div class="eyebrow">ORDENS DE OPERAÇÃO</div><h2>Missões</h2></div><span class="tag">CAMPANHA 01</span></div>
+    <article class="card mission">
+      <div class="spread"><span class="tag gold">MISSÃO PRINCIPAL</span><span class="muted">Operação: Despertar</span></div>
+      <h3>Estabelecer a primeira linha de avanço</h3>
+      <p>Conclua um bloco real de estudo, mapeamento, revisão e bateria de questões. O progresso será registrado quando as atividades correspondentes forem salvas.</p>
+      <div class="mission-progress"><div class="spread"><b>Progresso</b><b id="missionPct">0%</b></div><div class="bar"><span id="missionBar"></span></div></div>
+      <ul class="objectives" id="objectives"></ul>
+      <div class="reward">Recompensa: <b>100 XP · 50 créditos · loot de operação</b></div>
+      <button id="claimMission" class="primary" disabled>Concluir missão</button>
+      <small class="muted" id="missionStatus">Aguardando cumprimento dos objetivos.</small>
+    </article>
+    <div class="section-head"><h2>Ameaças identificadas</h2></div>
+    <div class="enemy-grid">
+      <article class="card enemy"><b>O CORROSOR</b><p>Procrastinação e adiamento. Contramedida: iniciar um bloco curto.</p></article>
+      <article class="card enemy"><b>A NÉVOA</b><p>Esquecimento. Contramedida: revisão e recuperação ativa.</p></article>
+      <article class="card enemy"><b>O ENXAME</b><p>Distração e fragmentação. Contramedida: bloco concentrado.</p></article>
+      <article class="card enemy"><b>O CERCO</b><p>Acúmulo de tarefas. Contramedida: priorização objetiva.</p></article>
+    </div>
+    <small class="muted">Ameaças em monitoramento. Nenhum ataque ou penalidade é aplicado por ausência de registro.</small>
+  </section>
+
+  <section id="inventario" class="panel">
+    <div class="section-head"><div><div class="eyebrow">ARMAZÉM DA BASE</div><h2>Inventário de materiais</h2></div><span class="tag">RECURSOS</span></div>
+    <div id="inventoryList" class="inventory-grid"></div>
+    <div class="section-head"><h2>Equipamentos</h2></div>
+    <div class="inventory-grid">
+      <article class="card item"><div class="item-icon">🛡</div><div><b>Armadura básica</b><small>Comum · Equipamento inicial</small></div><span class="owned">1</span></article>
+      <article class="card item"><div class="item-icon">⌨</div><div><b>Terminal de operações</b><small>Comum · Equipamento inicial</small></div><span class="owned">1</span></article>
+      <article class="card item"><div class="item-icon">✈</div><div><b>Uniforme de recruta</b><small>Comum · Equipamento inicial</small></div><span class="owned">1</span></article>
+    </div>
+  </section>
+
+  <section id="oficina" class="panel">
+    <div class="section-head"><div><div class="eyebrow">ENGENHARIA E MANUTENÇÃO</div><h2>Oficina de operações</h2></div><span class="tag gold">CRAFTING</span></div>
+    <p class="muted">Receitas e projetos são desbloqueados durante a campanha. Os custos abaixo são exemplos iniciais de fabricação.</p>
+    <div id="recipes" class="recipe-grid"></div>
+  </section>
+
+  <section id="historico" class="panel">
+    <div class="section-head"><div><div class="eyebrow">REGISTRO DE BORDO</div><h2>Histórico de operações</h2></div><span class="tag">AUDITORIA</span></div>
+    <div id="historyList" class="history-list"></div>
+  </section>
+</main>
+<footer>COMANDO DE CONTROLE · OPERAÇÃO ÚLTIMA ASA <span>BUILD 0.1 · BANCO LOCAL</span></footer>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
